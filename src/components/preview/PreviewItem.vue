@@ -1,0 +1,39 @@
+<template>
+  <RouterLink
+    :to="renderedPath"
+    class="grid p-4 rounded-md auto-rows-min gap-y-1 bg-gradient-to-b from-gray-700/50 to-dark"
+  >
+    <h3 class="font-bold text-lg">
+      {{ title }}
+    </h3>
+    <p>
+      {{ description }}
+    </p>
+  </RouterLink>
+</template>
+
+<script setup>
+import { toRefs } from "vue";
+import { RouterLink } from "vue-router";
+const props = defineProps({
+  title: {
+    type: String,
+    required: true
+  },
+
+  description: {
+    type: String,
+    required: true
+  },
+
+  url: {
+    type: String,
+    required: true
+  }
+});
+
+const { title, description, url } = toRefs(props);
+const renderedPath = `/helpers/${url.value}`;
+</script>
+
+<style lang="scss" scoped></style>
