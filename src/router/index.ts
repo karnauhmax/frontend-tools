@@ -55,6 +55,26 @@ const router = createRouter({
             description:
               "Easily minify JS, SCSS, CSS, GRAPHQL code in one click! That's it!"
           }
+        },
+
+        {
+          path: "gradient-generator",
+          component: () => import("../components/gradient-generator/GradientGenerator.vue"),
+          meta: {
+            title: "Gradient Generator",
+            description:
+              "Generate your wonderful gradient in few clicks!"
+          }
+        },
+
+        {
+          path: "font-face-generator",
+          component: () => import("../components/font-face-generator/FontFaceGenerator.vue"),
+          meta: {
+            title: "Font-Face Generator",
+            description:
+              "Get rid of the tedious manual prescribing of Font Face and do everything in two clicks (or maybe more than two)"
+          }
         }
       ]
     }

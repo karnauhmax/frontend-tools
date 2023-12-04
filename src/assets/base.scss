@@ -10,13 +10,46 @@
     @apply box-border m-0 relative font-normal;
   }
 
+  ::selection {
+    color: #fff;
+    background: #42b883;
+  }
+
   body {
     @apply bg-dark font-main text-text-primary;
   }
 
-   input[type="number"]::-webkit-inner-spin-button,
-  input[type="number"]::-webkit-outer-spin-button {
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+  }
+
+  pre {
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background-color: #1c1b1b;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #42b883;
+  }
+
+  .not-clickable {
+    pointer-events: none
+  }
+  
+
+  .disabled {
+    @apply opacity-30 pointer-events-none;
+    // pointer-events: none;
   }
 }

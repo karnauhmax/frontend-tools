@@ -3,7 +3,7 @@
     class="border border-text-secondary/10 rounded-md bg-gradient-to-b from-gray-700/50 to-dark sticky self-start"
   >
     <div class="px-5 py-2 border-b border-text-secondary/10">
-      <p class="text-center font-bold">Check out Other Helpers</p>
+      <p class="text-center font-bold">Check out the Other Helpers</p>
     </div>
     <div class="px-5 py-2 grid gap-y-3">
       <RouterLink

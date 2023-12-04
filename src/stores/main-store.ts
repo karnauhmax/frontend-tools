@@ -30,6 +30,20 @@ export const useStore = defineStore("mainStore", () => {
       title: "Code Minifier",
       description: "Easily minify JS, CSS, SCSS, GRAPHQL code in one click",
       url: "minifier"
+    },
+
+    {
+      id: 5,
+      title: "Gradient Generator",
+      description: "Generate Wonderful Gradients",
+      url: "gradient-generator"
+    },
+
+    {
+      id: 6,
+      title: "Font-Face Generator",
+      description: "Generate Font-Face easily",
+      url: "font-face-generator"
     }
   ]);
 
