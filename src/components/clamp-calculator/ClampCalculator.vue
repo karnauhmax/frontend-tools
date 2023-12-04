@@ -91,12 +91,6 @@ const viewportMax = ref(1920);
 const valuesMax = ref(24);
 const valuesMin = ref(16);
 
-
-
-
-
-
-
 const wasCopied = ref(false);
 
 const availableUnits = ref([
@@ -155,17 +149,14 @@ const constant = computed(() => {
 });
 
 const minPx = computed(() => {
-  // return isRem.value ? remToPx(valuesMin.value) : valuesMin.value;
   return pxToRem(valuesMin.value)
 })
 
 const maxPx = computed(() => {
-  // return isRem.value ? remToPx(valuesMax.value) : valuesMax.value;
   return pxToRem(valuesMax.value)
 })
 
 const calculatedClamp = computed(() => {
-  console.log(minPx.value, maxPx.value, constant.value, variablePart.value);
   return `clamp(${minPx.value}rem, ${
     constant.value ? `${constant.value}rem + ` : ""
   } ${parseFloat((100 * variablePart.value).toFixed(2))}vw, ${maxPx.value}rem)`;
