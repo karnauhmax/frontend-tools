@@ -50,6 +50,7 @@
 
   .disabled {
     @apply opacity-30 pointer-events-none;
-    // pointer-events: none;
+    pointer-events: none;
   }
 }
+

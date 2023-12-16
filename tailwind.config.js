@@ -5,7 +5,11 @@ module.exports = {
   theme: {
     extend: {
       gridTemplateColumns: {
-        "sidebar-layout": "300px 1fr"
+        "sidebar-layout": "300px 1fr",
+        "performance-items-layout": "1fr 20px"
+      },
+      transitionProperty: {
+        "grid-rows": "grid-template-rows"
       },
       colors: {
         primary: "#42b883",

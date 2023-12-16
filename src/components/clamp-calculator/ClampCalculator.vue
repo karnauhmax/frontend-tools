@@ -2,20 +2,6 @@
   <div
     class="border border-text-secondary/10 p-4 grid grid-cols-2 gap-x-4 xl:gap-x-7 gap-y-4"
   >
-
-  <div class="flex items-center gap-4 col-span-2">
-
-    <!-- <div class="flex gap-x-3">
-      <button v-for="unit in availableUnits" 
-       :key="unit.id" 
-       :class="`font-bold transition-colors border-b-2 border-${selectedUnits === unit.value ? 'primary' : 'transparent'}`"
-       @click="selectUnitsHandler(unit.value)"
-       >
-       {{ unit.name }}
-      </button>
-    </div> -->
-  </div>
-
     <div class="grid gap-y-4">
       <p class="font-bold">Values</p>
 
@@ -97,15 +83,15 @@ const availableUnits = ref([
   {
     id: 1,
     name: "px",
-    value: "px",
+    value: "px"
   },
 
   {
     id: 2,
     name: "rem",
-    value: "rem",
+    value: "rem"
   }
-])
+]);
 
 const selectedUnits = ref("px");
 
@@ -115,16 +101,15 @@ const isRem = computed(() => {
 
 const selectUnitsHandler = (units) => {
   selectedUnits.value = units;
-  
+
   if (isRem.value) {
     valuesMax.value = pxToRem(valuesMax.value);
     valuesMin.value = pxToRem(valuesMin.value);
-    
   } else {
     valuesMax.value = remToPx(valuesMax.value);
     valuesMin.value = remToPx(valuesMin.value);
   }
-}
+};
 
 const copyHandler = () => {
   wasCopied.value = true;
@@ -143,18 +128,17 @@ const variablePart = computed(() => {
 
 const constant = computed(() => {
   return parseFloat(
-      ((valuesMax.value - viewportMax.value * variablePart.value) / 16).toFixed(3)
-    )
-
+    ((valuesMax.value - viewportMax.value * variablePart.value) / 16).toFixed(3)
+  );
 });
 
 const minPx = computed(() => {
-  return pxToRem(valuesMin.value)
-})
+  return pxToRem(valuesMin.value);
+});
 
 const maxPx = computed(() => {
-  return pxToRem(valuesMax.value)
-})
+  return pxToRem(valuesMax.value);
+});
 
 const calculatedClamp = computed(() => {
   return `clamp(${minPx.value}rem, ${

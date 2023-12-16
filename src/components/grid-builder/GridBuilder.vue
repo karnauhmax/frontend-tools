@@ -94,10 +94,6 @@ const inputHandler = () => {
     generateHandler();
   }
 };
-
-onMounted(() => {
-  // console.log(output.value);
-});
 </script>
 
 <style lang="scss" scoped></style>

@@ -88,54 +88,7 @@ const fontPath = ref("../fonts/");
 const selectedWeight = ref(400);
 const selectedStyle = ref("normal");
 const wasCopied = ref(false);
-
-const result = computed(() => {
-  const result = `
-    @font-face {
-      font-family: "${fileName.value}";
-      src: ${selectedFormats.value
-        .map((format, index, array) => {
-          const url = `${fontPath.value}${fileName.value}.${format} `;
-          return index === 0
-            ? `url("${url}") format("${format}")${
-                index < array.length - 1 ? "," : ";"
-              }`
-            : `        url("${url}") format("${format}")${
-                index < array.length - 1 ? "," : ";"
-              }`;
-        })
-        .join("\n     ")}
-      font-weight: ${selectedWeight.value};
-      font-style: ${selectedStyle.value};
-    }
-  `;
-  return result;
-});
-
 const selectedFormats = ref(["woff2"]);
-
-const checkIfDisabled = (value) => {
-  if (selectedFormats.value.length === 1) {
-    if (selectedFormats.value.includes(value)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-};
-
-const isClickable = computed(() => {
-  return selectedFormats.value.length === 1 ? false : true;
-});
-
-const copyHandler = () => {
-  wasCopied.value = true;
-
-  setTimeout(() => {
-    wasCopied.value = false;
-  }, 3000);
-};
-
 const formats = ref([
   {
     id: 1,
@@ -233,6 +186,47 @@ const styles = ref([
     checked: false
   }
 ]);
+
+const result = computed(() => {
+  const result = `
+    @font-face {
+      font-family: "${fileName.value}";
+      src: ${selectedFormats.value
+        .map((format, index, array) => {
+          const url = `${fontPath.value}${fileName.value}.${format} `;
+          return index === 0
+            ? `url("${url}") format("${format}")${
+                index < array.length - 1 ? "," : ";"
+              }`
+            : `        url("${url}") format("${format}")${
+                index < array.length - 1 ? "," : ";"
+              }`;
+        })
+        .join("\n     ")}
+      font-weight: ${selectedWeight.value};
+      font-style: ${selectedStyle.value};
+    }
+  `;
+  return result;
+});
+
+const checkIfDisabled = (value) => {
+  if (selectedFormats.value.length === 1) {
+    if (selectedFormats.value.includes(value)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+};
+
+const copyHandler = () => {
+  wasCopied.value = true;
+
+  setTimeout(() => {
+    wasCopied.value = false;
+  }, 2000);
+};
 </script>
 
 <style lang="scss" scoped></style>

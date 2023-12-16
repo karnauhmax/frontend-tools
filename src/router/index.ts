@@ -12,7 +12,7 @@ const router = createRouter({
     {
       path: "/helpers/",
       name: "HelperView",
-      meta: { test: "123" },
+      meta: { title: "Helpers" },
       component: () => import("../views/HelperView.vue"),
       children: [
         {
@@ -75,7 +75,27 @@ const router = createRouter({
             description:
               "Get rid of the tedious manual prescribing of Font Face and do everything in two clicks (or maybe more than two)"
           }
-        }
+        },
+
+        {
+          path: "transform-generator",
+          component: () => import("../components/transform-generator/TransformGenerator.vue"),
+          meta: {
+            title: "Transform Generator",
+            description:
+              "I don't know what to say. Transform generator :p"
+          }
+        },
+
+        {
+          path: "performance-report",
+          component: () => import("../components/performance-report/PerformanceReport.vue"),
+          meta: {
+            title: "Performance Report",
+            description:
+              "Test your website performance based on Pagespeed or GTMetrix"
+          }
+        },
       ]
     }
   ]

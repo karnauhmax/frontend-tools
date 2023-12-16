@@ -10,7 +10,7 @@
       v-for="link in router.matched"
       :key="link.title"
     >
-      <RouterLink :to="link.path">Path</RouterLink>
+      <RouterLink :to="link.path">{{ link.meta.title }}</RouterLink>
     </li>
   </ol>
 </template>

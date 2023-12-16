@@ -1,5 +1,6 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
+import { getPageSpeedReport } from "../services/api.js";
 
 export const useStore = defineStore("mainStore", () => {
   const previewItems = ref([
@@ -44,8 +45,87 @@ export const useStore = defineStore("mainStore", () => {
       title: "Font-Face Generator",
       description: "Generate Font-Face easily",
       url: "font-face-generator"
+    },
+
+    {
+      id: 7,
+      title: "Transform Generator",
+      description: "Generate Transform easily",
+      url: "transform-generator"
+    },
+
+    {
+      id: 8,
+      title: "Test Performance Report",
+      description: "Test your website's application performance",
+      url: "performance-report"
     }
   ]);
 
-  return { previewItems };
+  const pageSpeedReport = ref({});
+
+
+  //minify data
+
+  const minifyOptions = ref([
+    {
+      title: "HTML",
+      value: "html",
+      checked: false
+    },
+  
+    {
+      title: "JavaScript",
+      value: "js",
+      checked: true
+    },
+    {
+      title: "CSS",
+      value: "css",
+      checked: false
+    },
+  
+    {
+      title: "SCSS",
+      value: "scss",
+      checked: false
+    }
+  ]);
+
+  const minifyHtml = (input: string) => {
+    const minifiedValue = input
+      .replace(/<!--[\s\S]*?-->/g, "")
+      .replace(/\s+/g, " ")
+      .replace(/>\s+</g, "><");
+
+      return minifiedValue;
+  };
+
+  const minifyCss = (input: string) => {
+
+  const minifiedValue = input
+    .replace(/([^0-9a-zA-Z\.#])\s+/g, "$1")
+    .replace(/\s([^0-9a-zA-Z\.#]+)/g, "$1")
+    .replace(/;}/g, "}")
+    .replace(/\/\*.*?\*\//g, "");
+
+    return minifiedValue;
+
+  };
+
+  const minifyJavaScript = (input: string) => {
+    let minifiedValue = input.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, "");
+
+    minifiedValue = minifiedValue.replace(/\s+/g, " ");
+  
+    return minifiedValue;
+  };
+
+  const generatePageSpeedReport = async (url: string, device: string) => {    
+   const data = await getPageSpeedReport(url, device);
+
+   pageSpeedReport.value = data;
+  }
+
+  return { previewItems, minifyJavaScript, minifyCss, minifyHtml, minifyOptions, generatePageSpeedReport, pageSpeedReport };
 });
