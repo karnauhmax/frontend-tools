@@ -3,7 +3,6 @@
     :max="maxValue"
     :min="minValue"
     :step="stepValue"
-    class="input-range"
     type="range"
     @input="changeHandler"
   />

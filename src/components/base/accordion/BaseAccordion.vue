@@ -3,11 +3,11 @@
     <div
       class="border-b border-text-secondary/50 grid"
       v-for="(item, index) in items"
-      :key="index"
+      :key="`accordion-item-${index}`"
     >
       <div>
         <button class="text-start pb-2 w-full" @click="clickHandler(index)">
-          <slot name="header" :item="item"></slot>
+          <slot name="header" :item="item" />
         </button>
       </div>
       <div
@@ -18,7 +18,7 @@
         }"
       >
         <div class="overflow-hidden">
-          <slot name="content" :item="item"></slot>
+          <slot name="content" :item="item" />
         </div>
       </div>
     </div>
@@ -42,10 +42,9 @@ const activeElementIndex = ref(0);
 const clickHandler = (index) => {
   if (index !== activeElementIndex.value) {
     activeElementIndex.value = index;
-  } else {
-    activeElementIndex.value = null;
+    return;
   }
+
+  activeElementIndex.value = null;
 };
 </script>
-
-<style lang="scss" scoped></style>

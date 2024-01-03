@@ -15,6 +15,10 @@
     background: #42b883;
   }
 
+  html {
+    scrollbar-gutter: stable;
+  }
+
   body {
     @apply bg-dark font-main text-text-primary;
   }
@@ -51,6 +55,14 @@
   .disabled {
     @apply opacity-30 pointer-events-none;
     pointer-events: none;
+  }
+
+  .sidebar {
+    @apply fixed right-0 top-1/2 rounded-md bg-gradient-to-b from-gray-700/50 to-dark self-start lg:relative lg:top-0 items-start;
+  }
+
+  .active {
+    @apply text-primary pointer-events-none;
   }
 }
 

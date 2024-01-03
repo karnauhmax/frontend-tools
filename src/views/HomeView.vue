@@ -6,11 +6,10 @@ import GridBuilder from "../components/grid-builder/GridBuilder.vue";
 
 <template>
   <main>
-    <div class="max-w-[1300px] mx-auto px-2 min-h-[inherit]">
+    <div>
       <HeroSection />
 
       <PreviewSection />
-
     </div>
   </main>
 </template>

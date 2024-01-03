@@ -7,16 +7,12 @@
 
       <div class="flex flex-col xl:flex-row gap-2">
         <BaseInput
-          v-model="valuesMin"
-          label="Minimal Value"
-          :units="selectedUnits"
-          type="number"
-        />
-        <BaseInput
-          v-model="valuesMax"
-          label="Max Value"
-          :units="selectedUnits"
-          type="number"
+          v-for="({ id, label, units, type }, index) in valuesInputsConfig"
+          :key="id"
+          :units="units"
+          :type="type"
+          :label="label"
+          v-model="valuesInputsConfig[index].value"
         />
       </div>
     </div>
@@ -24,16 +20,12 @@
       <p class="font-bold">Viewport</p>
       <div class="flex flex-col xl:flex-row gap-2">
         <BaseInput
-          v-model="viewportMin"
-          label="Minimal Value"
-          units="px"
-          type="number"
-        />
-        <BaseInput
-          v-model="viewportMax"
-          label="Max Value"
-          units="px"
-          type="number"
+          v-for="item in viewportInputsConfig"
+          :key="item.id"
+          :units="item.units"
+          :type="item.type"
+          :label="item.label"
+          v-model="item.value"
         />
       </div>
     </div>
@@ -41,11 +33,9 @@
     <div class="col-span-2 grid gap-y-2">
       <span>Output</span>
       <div
-        class="border transition px-2 py-2 relative pr-[30px]"
-        :class="{
-          'border-primary': wasCopied,
-          'border-text-secondary': !wasCopied
-        }"
+        :class="`border transition px-2 py-2 relative pr-[30px] ${
+          wasCopied ? 'border-primary' : 'border-text-secondary'
+        }`"
       >
         <p>{{ calculatedClamp }}</p>
         <BaseCopyBtn
@@ -55,8 +45,9 @@
         />
       </div>
       <p
-        class="transition-opacity text-sm text-primary"
-        :class="{ 'opacity-1': wasCopied, 'opacity-0': !wasCopied }"
+        :class="`transition-opacity text-sm text-primary ${
+          wasCopied ? 'opacity-1' : 'opacity-0'
+        }`"
       >
         Copied
       </p>
@@ -67,7 +58,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import { pxToRem } from "@/helpers/pxToRem.js";
-import { remToPx } from "@/helpers/remToPx.js";
+
 import BaseCopyBtn from "@base/BaseCopyBtn.vue";
 import BaseInput from "@base/BaseInput.vue";
 
@@ -79,38 +70,6 @@ const valuesMin = ref(16);
 
 const wasCopied = ref(false);
 
-const availableUnits = ref([
-  {
-    id: 1,
-    name: "px",
-    value: "px"
-  },
-
-  {
-    id: 2,
-    name: "rem",
-    value: "rem"
-  }
-]);
-
-const selectedUnits = ref("px");
-
-const isRem = computed(() => {
-  return selectedUnits.value === "rem";
-});
-
-const selectUnitsHandler = (units) => {
-  selectedUnits.value = units;
-
-  if (isRem.value) {
-    valuesMax.value = pxToRem(valuesMax.value);
-    valuesMin.value = pxToRem(valuesMin.value);
-  } else {
-    valuesMax.value = remToPx(valuesMax.value);
-    valuesMin.value = remToPx(valuesMin.value);
-  }
-};
-
 const copyHandler = () => {
   wasCopied.value = true;
 
@@ -118,6 +77,42 @@ const copyHandler = () => {
     wasCopied.value = false;
   }, 3000);
 };
+
+const viewportInputsConfig = ref([
+  {
+    id: 1,
+    label: "Min",
+    units: "px",
+    type: "number",
+    value: viewportMin
+  },
+
+  {
+    id: 2,
+    label: "Max",
+    units: "px",
+    type: "number",
+    value: viewportMax
+  }
+]);
+
+const valuesInputsConfig = ref([
+  {
+    id: 1,
+    label: "Max",
+    units: "px",
+    type: "number",
+    value: valuesMin
+  },
+
+  {
+    id: 2,
+    label: "Min",
+    units: "px",
+    type: "number",
+    value: valuesMax
+  }
+]);
 
 const variablePart = computed(() => {
   return (
@@ -146,5 +141,3 @@ const calculatedClamp = computed(() => {
   } ${parseFloat((100 * variablePart.value).toFixed(2))}vw, ${maxPx.value}rem)`;
 });
 </script>
-
-<style lang="scss" scoped></style>

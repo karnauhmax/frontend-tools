@@ -36,5 +36,3 @@ const remHandler = () => {
   pxValue.value = remToPx(remValue.value);
 };
 </script>
-
-<style lang="scss" scoped></style>

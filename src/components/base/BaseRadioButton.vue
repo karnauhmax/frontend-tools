@@ -36,5 +36,3 @@ const changeHandler = (event) => {
   emits("change");
 };
 </script>
-
-<style lang="scss" scoped></style>

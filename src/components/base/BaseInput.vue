@@ -3,12 +3,10 @@
     <p v-if="label">{{ label }}</p>
 
     <input
-      class="text-secondary w-full bg-dark border p-2 focus:outline-none focus:border2 focus:border-primary pr-8"
-      :class="{
-        'border-red-500/100': !isValid,
-        'border-text-secondary': isValid
-      }"
-      @input="$emit('update:modelValue', $event.target.value)"
+      :class="`text-secondary w-full bg-dark border p-2 focus:outline-none focus:border2 focus:border-primary pr-8 ${
+        isValid ? 'border-text-secondary' : 'border-red-500/100'
+      }`"
+      @input="inputHandler"
       :value="modelValue"
       v-bind="$attrs"
     />
@@ -53,6 +51,8 @@ const props = defineProps({
 });
 
 const emits = defineEmits(["update:modelValue"]);
-</script>
 
-<style lang="scss" scoped></style>
+const inputHandler = (event) => {
+  emits("update:modelValue", event.target.value);
+};
+</script>

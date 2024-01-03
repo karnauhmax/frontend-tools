@@ -33,7 +33,5 @@ const props = defineProps({
 });
 
 const { title, description, url } = toRefs(props);
-const renderedPath = `/helpers/${url.value}`;
+const renderedPath = `/${url.value}`;
 </script>
-
-<style lang="scss" scoped></style>

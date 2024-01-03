@@ -25,5 +25,3 @@ const copyHandler = () => {
   emits("copied");
 };
 </script>
-
-<style lang="scss" scoped></style>

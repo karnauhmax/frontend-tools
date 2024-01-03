@@ -76,115 +76,114 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-import BaseButton from "@base/BaseButton.vue";
-import BaseCheckbox from "@base/BaseCheckbox.vue";
-import BaseInput from "@base/BaseInput.vue";
-import BaseRadioButton from "@base/BaseRadioButton.vue";
-import BaseCopyBtn from "@base/BaseCopyBtn.vue";
+import { computed, ref } from 'vue';
+import BaseCheckbox from '@base/BaseCheckbox.vue';
+import BaseInput from '@base/BaseInput.vue';
+import BaseRadioButton from '@base/BaseRadioButton.vue';
+import BaseCopyBtn from '@base/BaseCopyBtn.vue';
 
-const fileName = ref("Montserrat");
-const fontPath = ref("../fonts/");
+const fileName = ref('Montserrat');
+const fontPath = ref('../fonts/');
 const selectedWeight = ref(400);
-const selectedStyle = ref("normal");
+const selectedStyle = ref('normal');
 const wasCopied = ref(false);
-const selectedFormats = ref(["woff2"]);
+const selectedFormats = ref(['woff2']);
 const formats = ref([
   {
     id: 1,
-    value: "woff2"
+    value: 'woff2',
   },
 
   {
     id: 2,
-    value: "woff"
+    value: 'woff',
   },
 
   {
     id: 3,
-    value: "ttf"
+    value: 'ttf',
   },
 
   {
     id: 4,
-    value: "otf"
-  }
+    value: 'otf',
+  },
 ]);
 
 const weights = ref([
   {
     id: 1,
     value: 100,
-    checked: false
+    checked: false,
   },
 
   {
     id: 2,
     value: 200,
-    checked: false
+    checked: false,
   },
 
   {
     id: 3,
     value: 300,
-    checked: false
+    checked: false,
   },
 
   {
     id: 4,
     value: 400,
-    checked: true
+    checked: true,
   },
 
   {
     id: 5,
     value: 500,
-    checked: false
+    checked: false,
   },
 
   {
     id: 6,
     value: 600,
-    checked: false
+    checked: false,
   },
 
   {
     id: 7,
     value: 700,
-    checked: false
+    checked: false,
   },
 
   {
     id: 8,
     value: 800,
-    checked: false
+    checked: false,
   },
 
   {
     id: 9,
     value: 900,
-    checked: false
-  }
+    checked: false,
+  },
 ]);
 
 const styles = ref([
   {
     id: 1,
-    value: "normal",
-    checked: true
+    value: 'normal',
+    checked: true,
   },
 
   {
     id: 2,
-    value: "italic",
-    checked: false
+    value: 'italic',
+    checked: false,
   },
 
   {
     id: 3,
-    value: "oblique",
-    checked: false
-  }
+    value: 'oblique',
+    checked: false,
+  },
 ]);
 
 const result = computed(() => {
@@ -192,17 +191,17 @@ const result = computed(() => {
     @font-face {
       font-family: "${fileName.value}";
       src: ${selectedFormats.value
-        .map((format, index, array) => {
-          const url = `${fontPath.value}${fileName.value}.${format} `;
-          return index === 0
-            ? `url("${url}") format("${format}")${
-                index < array.length - 1 ? "," : ";"
-              }`
-            : `        url("${url}") format("${format}")${
-                index < array.length - 1 ? "," : ";"
-              }`;
-        })
-        .join("\n     ")}
+    .map((format, index, array) => {
+      const url = `${fontPath.value}${fileName.value}.${format} `;
+      return index === 0
+        ? `url("${url}") format("${format}")${
+          index < array.length - 1 ? ',' : ';'
+        }`
+        : `        url("${url}") format("${format}")${
+          index < array.length - 1 ? ',' : ';'
+        }`;
+    })
+    .join('\n     ')}
       font-weight: ${selectedWeight.value};
       font-style: ${selectedStyle.value};
     }
@@ -210,15 +209,9 @@ const result = computed(() => {
   return result;
 });
 
-const checkIfDisabled = (value) => {
-  if (selectedFormats.value.length === 1) {
-    if (selectedFormats.value.includes(value)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-};
+const checkIfDisabled = (value) => (
+  selectedFormats.value.length === 1 && selectedFormats.value.includes(value)
+);
 
 const copyHandler = () => {
   wasCopied.value = true;
@@ -228,5 +221,3 @@ const copyHandler = () => {
   }, 2000);
 };
 </script>
-
-<style lang="scss" scoped></style>

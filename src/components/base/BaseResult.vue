@@ -4,7 +4,7 @@
       <span>{{ label }}</span>
     </div>
 
-    <slot></slot>
+    <slot />
   </div>
 </template>
 
@@ -16,5 +16,3 @@ defineProps({
   }
 });
 </script>
-
-<style lang="scss" scoped></style>

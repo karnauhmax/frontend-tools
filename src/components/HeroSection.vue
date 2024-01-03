@@ -16,7 +16,5 @@
 </template>
 
 <script setup>
-import ArrowDown from "vue-material-design-icons/ArrowDown.vue";
+import ArrowDown from 'vue-material-design-icons/ArrowDown.vue';
 </script>
-
-<style lang="scss" scoped></style>

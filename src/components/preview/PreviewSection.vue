@@ -22,5 +22,3 @@ const store = useStore();
 
 const { previewItems } = storeToRefs(store);
 </script>
-
-<style lang="scss" scoped></style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-wrap gap-x-5 mb-4">
+  <div class="flex flex-wrap gap-x-5 gap-y-3 mb-4">
     <BaseRadioButton
       v-for="option in minifyOptions"
       name="option"
@@ -21,7 +21,7 @@
       <textarea
         class="bg-dark border border-text-secondary/10 resize-none w-full min-h-[300px] transition focus:outline-none focus:border-primary p-4 custom-scrollbar"
         v-model="inputValue"
-      ></textarea>
+      />
       <BaseCopyBtn
         class="top-4 right-4 absolute"
         :content-to-copy="outputValue"
@@ -39,7 +39,7 @@
       <textarea
         class="bg-dark border border-text-secondary/10 resize-none w-full min-h-[300px] transition focus:outline-none focus:border-primary p-4 custom-scrollbar"
         v-model="outputValue"
-      ></textarea>
+      />
       <BaseCopyBtn
         class="top-4 right-4 absolute"
         :content-to-copy="outputValue"
@@ -49,29 +49,28 @@
 </template>
 
 <script setup>
-import BaseButton from "@base/BaseButton.vue";
-import BaseRadioButton from "@base/BaseRadioButton.vue";
-import BaseCheckbox from "@base/BaseCheckbox.vue";
-import BaseCopyBtn from "@base/BaseCopyBtn.vue";
+import { ref } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useStore } from '@stores/main-store.ts';
 
-import { ref, computed } from "vue";
-import { storeToRefs } from "pinia";
-import { useStore } from "@stores/main-store.ts";
+import BaseButton from '@base/BaseButton.vue';
+import BaseCopyBtn from '@base/BaseCopyBtn.vue';
+import BaseRadioButton from '@base/BaseRadioButton.vue';
 
 const store = useStore();
 const { minifyCss, minifyHtml, minifyJavaScript } = store;
 const { minifyOptions } = storeToRefs(store);
 
-const outputValue = ref("");
-const inputValue = ref("");
-const selectedOption = ref("js");
+const outputValue = ref('');
+const inputValue = ref('');
+const selectedOption = ref('js');
 
 const generateHandler = () => {
-  if (selectedOption.value === "js") {
+  if (selectedOption.value === 'js') {
     outputValue.value = minifyJavaScript(inputValue.value);
-  } else if (selectedOption.value === "css") {
+  } else if (selectedOption.value === 'css') {
     outputValue.value = minifyCss(inputValue.value);
-  } else if (selectedOption.value === "html") {
+  } else if (selectedOption.value === 'html') {
     outputValue.value = minifyHtml(inputValue.value);
   }
 };
@@ -79,9 +78,7 @@ const generateHandler = () => {
 const updateHandler = (value) => {
   selectedOption.value = value;
 
-  outputValue.value = "";
-  inputValue.value = "";
+  outputValue.value = '';
+  inputValue.value = '';
 };
 </script>
-
-<style lang="scss" scoped></style>

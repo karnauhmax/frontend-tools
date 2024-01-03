@@ -47,11 +47,11 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref } from "vue";
 import { pxToRem } from "@/helpers/pxToRem.js";
+
 import BaseButton from "@base/BaseButton.vue";
 import BaseInput from "@base/BaseInput.vue";
-import BaseCheckbox from "@base/BaseCheckbox.vue";
 import BaseRadioButton from "@base/BaseRadioButton.vue";
 import GridOutput from "./GridOutput.vue";
 
@@ -66,27 +66,42 @@ const isInputValid = ref(true);
 const output = ref(null);
 const outputHead = ref(null);
 
+const calculateWidth = () => {
+  if (units.value === "rem") {
+    return pxToRem(width.value);
+  } else {
+    return width.value;
+  }
+};
+
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
+const scrollToOutputHead = () => {
+  setTimeout(() => {
+    outputHead.value.scrollIntoView({
+      block: "start",
+      behavior: "smooth"
+    });
+  }, 100);
+};
+
 const generateHandler = () => {
   if (width.value) {
-    if (units.value === "rem") {
-      generatedWidth.value = pxToRem(width.value);
-    } else {
-      generatedWidth.value = width.value;
-    }
+    generatedWidth.value = calculateWidth();
 
     isInputValid.value = true;
+
     output.value.outputElement.style.width = `100%`;
 
-    setTimeout(() => {
-      outputHead.value.scrollIntoView({
-        block: "start",
-        behavior: "smooth"
-      });
-    }, 100);
-  } else {
-    isInputValid.value = false;
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    scrollToOutputHead();
+
+    return;
   }
+
+  isInputValid.value = false;
+  scrollToTop();
 };
 
 const inputHandler = () => {
@@ -95,5 +110,3 @@ const inputHandler = () => {
   }
 };
 </script>
-
-<style lang="scss" scoped></style>
