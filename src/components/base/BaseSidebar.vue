@@ -14,21 +14,23 @@
       <ArrowLeft :size="18" />
     </button>
     <aside
-      class="rounded-md bg-gradient-to-b from-gray-700 lg:from-gray-700/50 to-dark self-start items-start h-full lg:w-full"
+      class="rounded-md bg-gradient-to-b from-gray-700 lg:from-gray-700/50 to-dark self-start items-start h-full lg:w-full overflow-auto"
     >
       <div class="px-5 py-2 border-b border-text-secondary/10">
         <p class="text-center font-bold">Check out the Other Helpers</p>
       </div>
-      <div class="px-5 py-2 grid gap-y-3">
-        <RouterLink
-          class="font-bold hover:text-primary transition-colors duration-300"
-          v-for="{ id, url, title } in previewItems"
-          active-class="active"
-          :key="id"
-          :to="`/${url}`"
-        >
-          {{ title }}
-        </RouterLink>
+      <div class="px-5 py-2">
+        <ul class="grid gap-y-3">
+          <li v-for="{ id, url, title } in previewItems" :key="id">
+            <RouterLink
+              class="font-bold hover:text-primary transition-colors duration-300"
+              active-class="active"
+              :to="`/${url}`"
+            >
+              {{ title }}
+            </RouterLink>
+          </li>
+        </ul>
       </div>
     </aside>
   </div>

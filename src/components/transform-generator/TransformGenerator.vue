@@ -121,9 +121,7 @@ const dynamicStyles = computed(() => {
   const result = `
 
   ${cssRulesToChange.value
-    .map((rule) => (rule.value && parseFloat(rule.value)
-      ? `${rule.cssValue}(${rule.value}${rule.unit}) `
-      : ''))
+    .map((rule) => (rule.value ? `${rule.cssValue}(${rule.value}${rule.unit}) ` : ''))
     .join('')}
 
   `;

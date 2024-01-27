@@ -6,16 +6,18 @@
       :key="`accordion-item-${index}`"
     >
       <div>
-        <button class="text-start pb-2 w-full" @click="clickHandler(index)">
+        <button
+          type="button"
+          class="text-start pb-2 w-full"
+          @click="clickHandler(index)"
+        >
           <slot name="header" :item="item" />
         </button>
       </div>
       <div
-        class="grid pb-2 transition-all duration-300"
-        :class="{
-          'grid-rows-[0fr]': activeElementIndex !== index,
-          'grid-rows-[1fr]': activeElementIndex === index
-        }"
+        :class="`grid pb-2 grid-rows-[${
+          activeElementIndex === index ? 1 : 0
+        }fr] transition-all duration-300`"
       >
         <div class="overflow-hidden">
           <slot name="content" :item="item" />

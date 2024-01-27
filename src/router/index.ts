@@ -1,8 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import { loadLayoutMiddleware } from './layoutMiddleware.ts';
+import { loadLayoutMiddleware } from './layoutMiddleware';
 
 const HomeView = () => import('../views/HomeView.vue');
-const HelperView = () => import('../views/HelperView.vue');
 const GridBuilder = () => import('../components/grid-builder/GridBuilder.vue');
 const REMConverter = () => import('../components/rem-converter/REMConverter.vue');
 const ClampCalculator = () => import('../components/clamp-calculator/ClampCalculator.vue');
@@ -11,7 +10,6 @@ const GradientGenerator = () => import('../components/gradient-generator/Gradien
 const FontFaceGenerator = () => import('../components/font-face-generator/FontFaceGenerator.vue');
 const TransformGenerator = () => import('../components/transform-generator/TransformGenerator.vue');
 const PerformanceReport = () => import('../components/performance-report/PerformanceReport.vue');
-const BaseSidebar = () => import('@base/BaseSidebar.vue');
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -102,7 +100,7 @@ const router = createRouter({
       component: PerformanceReport,
       meta: {
         title: 'Performance Report',
-        description: 'Test your website performance based on Pagespeed or GTMetrix',
+        description: 'Test your website performance based on Pagespeed',
         layout: 'helper',
       },
     },

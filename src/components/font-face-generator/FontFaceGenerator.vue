@@ -1,76 +1,78 @@
 <template>
-  <form class="grid gap-y-4 mb-5">
-    <label>
-      <BaseInput v-model="fontPath" label="Font Path" />
-    </label>
+  <div>
+    <form class="grid gap-y-4 mb-5">
+      <label>
+        <BaseInput v-model="fontPath" label="Font Path" />
+      </label>
 
-    <label>
-      <BaseInput v-model="fileName" label="Font Name" />
-    </label>
+      <label>
+        <BaseInput v-model="fileName" label="Font Name" />
+      </label>
 
-    <div class="grid gap-y-2">
-      <p>Formats:</p>
-      <div class="flex gap-x-3">
-        <BaseCheckbox
-          v-for="format in formats"
-          :key="format.id"
-          :value="format.value"
-          :label="format.value"
-          v-model="selectedFormats"
-          :class="{ 'pointer-events-none': checkIfDisabled(format.value) }"
-        />
+      <div class="grid gap-y-2">
+        <p>Formats:</p>
+        <div class="flex gap-x-3">
+          <BaseCheckbox
+            v-for="format in formats"
+            :key="format.id"
+            :value="format.value"
+            :label="format.value"
+            v-model="selectedFormats"
+            :class="{ 'pointer-events-none': checkIfDisabled(format.value) }"
+          />
+        </div>
       </div>
-    </div>
 
-    <div class="grid gap-y-2">
-      <p>Weights:</p>
-      <div class="flex gap-x-3">
-        <BaseRadioButton
-          v-for="weight in weights"
-          :key="weight.id"
-          :checked="weight.checked"
-          name="weight"
-          :value="weight.value"
-          :label="weight.value"
-          v-model="selectedWeight"
-        />
+      <div class="grid gap-y-2">
+        <p>Weights:</p>
+        <div class="flex flex-wrap gap-3">
+          <BaseRadioButton
+            v-for="weight in weights"
+            :key="weight.id"
+            :checked="weight.checked"
+            name="weight"
+            :value="weight.value"
+            :label="weight.value"
+            v-model="selectedWeight"
+          />
+        </div>
       </div>
-    </div>
 
-    <div class="grid gap-y-2">
-      <p>Styles:</p>
-      <div class="flex gap-x-3">
-        <BaseRadioButton
-          v-for="style in styles"
-          :key="style.id"
-          :checked="style.checked"
-          name="style"
-          :value="style.value"
-          :label="style.value"
-          v-model="selectedStyle"
-        />
+      <div class="grid gap-y-2">
+        <p>Styles:</p>
+        <div class="flex wrap gap-3">
+          <BaseRadioButton
+            v-for="style in styles"
+            :key="style.id"
+            :checked="style.checked"
+            name="style"
+            :value="style.value"
+            :label="style.value"
+            v-model="selectedStyle"
+          />
+        </div>
       </div>
-    </div>
-  </form>
+    </form>
 
-  <div class="grid gap-y-3">
-    <p>Output</p>
+    <div class="grid gap-y-3">
+      <p>Output</p>
 
-    <div
-      :class="`min-h-[350px] transition-colors border ${
-        wasCopied ? 'border-primary' : 'border-text-secondary/30'
-      }`"
-    >
-      <pre>
+      <div
+        :class="`min-h-[350px] transition-colors border ${
+          wasCopied ? 'border-primary' : 'border-text-secondary/30'
+        }`"
+      >
+        <pre>
      {{ result }}
     </pre
-      >
+        >
 
-      <BaseCopyBtn
-        :content-to-copy="result"
-        @copied="copyHandler"
-        class="absolute top-[15px] right-[15px]"
-      />
+        <BaseCopyBtn
+          :content-to-copy="result"
+          @copied="copyHandler"
+          class="absolute top-[15px] right-[15px]"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -209,9 +211,7 @@ const result = computed(() => {
   return result;
 });
 
-const checkIfDisabled = (value) => (
-  selectedFormats.value.length === 1 && selectedFormats.value.includes(value)
-);
+const checkIfDisabled = (value) => selectedFormats.value.length === 1 && selectedFormats.value.includes(value);
 
 const copyHandler = () => {
   wasCopied.value = true;

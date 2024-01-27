@@ -1,72 +1,61 @@
 <template>
   <div>
-    <form
-      @submit.prevent
-      :class="`grid gap-y-5 ${isLoading ? 'disabled' : ''}`"
-    >
-      <BaseInput v-model="url" label="URL of the page" />
+    <div class="grid gap-y-5 md:gap-y-10">
+      <form
+        @submit.prevent="generateHandler"
+        :class="`grid gap-y-5 ${isLoading ? 'disabled' : ''}`"
+      >
+        <BaseInput v-model="url" label="URL of the page" />
 
-      <div class="flex gap-x-4">
-        <BaseRadioButton
-          v-model="deviceType"
-          label="Mobile"
-          value="mobile"
-          name="device-type"
-          checked
-        />
-        <BaseRadioButton
-          v-model="deviceType"
-          name="device-type"
-          label="Desktop"
-          value="desktop"
-        />
-      </div>
-
-      <BaseButton
-        label="Generate"
-        class="justify-self-start"
-        @click="generateHandler"
-        :disabled="isLoading"
-      />
-    </form>
-
-    <div class="grid gap-y-10" v-if="showReport && !isLoading">
-      <div class="grid gap-y-2 max-w-[200px] justify-self-center">
-        <div class="grid grid-cols-performance-items-layout items-center">
-          <p class="text-md">Performance Score</p>
+        <div class="flex gap-x-4">
+          <BaseRadioButton
+            v-model="deviceType"
+            label="Mobile"
+            value="mobile"
+            name="device-type"
+            checked
+          />
+          <BaseRadioButton
+            v-model="deviceType"
+            name="device-type"
+            label="Desktop"
+            value="desktop"
+          />
         </div>
-        <div
-          class="w-[200px] min-h-[80px] rounded-sm border border-primary text-primary font-bold text-3xl grid place-items-center justify-self-center"
-        >
-          {{ performanceScore }}
+
+        <BaseButton
+          label="Generate"
+          class="justify-self-start"
+          type="submit"
+          :disabled="isLoading"
+        />
+      </form>
+
+      <div class="grid gap-y-8" v-if="showReport && !isLoading">
+        <div class="grid gap-y-2 md:max-w-[200px] w-full justify-self-center">
+          <PerformanceReportMetric
+            :display-value="performanceScore * 100"
+            :score="performanceScore"
+            title="Performance Score"
+          />
         </div>
-      </div>
 
-      <div class="grid grid-cols-4 gap-y-4 gap-x-8">
-        <div
-          class="grid gap-y-2"
-          v-for="([, metric], index) in filteredMetrics"
-          :key="index"
-        >
-          <div
-            class="grid items-center gap-x-2 grid-cols-performance-items-layout"
-          >
-            <p class="text-md">{{ metric.title }}</p>
-
-            <BaseTooltip>
-              {{ metric.description }}
-            </BaseTooltip>
-            <InformationOutline :size="21" class="tooltip-icon" />
-          </div>
-          <div
-            class="min-w-[80px] min-h-[80px] rounded-sm border border-primary text-primary font-bold text-3xl grid place-items-center"
-          >
-            {{ metric.displayValue }}
-          </div>
+        <div class="grid grid-cols-performance-metrics-layout gap-x-6 gap-y-8">
+          <PerformanceReportMetric
+            v-for="(
+              [, {
+                title, description, displayValue, score,
+              }], index
+            ) in filteredMetrics"
+            :title="title"
+            :display-value="displayValue"
+            :score="score"
+            :description="description"
+            :key="index"
+          />
         </div>
       </div>
     </div>
-
     <BaseLoader class="absolute right-1/2 transform-x-1/2" v-if="isLoading" />
   </div>
 </template>
@@ -79,9 +68,8 @@ import { storeToRefs } from 'pinia';
 import BaseInput from '@base/BaseInput.vue';
 import BaseButton from '@base/BaseButton.vue';
 import BaseLoader from '@base/BaseLoader.vue';
-import BaseTooltip from '@base/BaseTooltip.vue';
 import BaseRadioButton from '@base/BaseRadioButton.vue';
-import InformationOutline from 'vue-material-design-icons/informationOutline.vue';
+import PerformanceReportMetric from '@/components/performance-report/PerformanceReportMetric.vue';
 
 const store = useStore();
 
@@ -122,6 +110,6 @@ const filteredMetrics = computed(() => {
 });
 
 const performanceScore = computed(
-  () => pageSpeedReport.value.lighthouseResult?.categories.performance.score * 100,
+  () => pageSpeedReport.value.lighthouseResult?.categories.performance.score,
 );
 </script>

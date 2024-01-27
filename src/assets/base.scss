@@ -64,5 +64,12 @@
   .active {
     @apply text-primary pointer-events-none;
   }
+
+  .score-high {
+    @apply border-primary;
+  }
+
+  .score-mid {
+  }
 }
 

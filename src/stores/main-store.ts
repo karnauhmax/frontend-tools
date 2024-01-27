@@ -1,4 +1,4 @@
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { defineStore } from "pinia";
 import { getPageSpeedReport } from "../services/api.js";
 
@@ -64,7 +64,6 @@ export const useStore = defineStore("mainStore", () => {
 
   const pageSpeedReport = ref({});
 
-
   //minify data
 
   const minifyOptions = ref([
@@ -73,7 +72,7 @@ export const useStore = defineStore("mainStore", () => {
       value: "html",
       checked: false
     },
-  
+
     {
       title: "JavaScript",
       value: "js",
@@ -84,7 +83,7 @@ export const useStore = defineStore("mainStore", () => {
       value: "css",
       checked: false
     },
-  
+
     {
       title: "SCSS",
       value: "scss",
@@ -98,34 +97,40 @@ export const useStore = defineStore("mainStore", () => {
       .replace(/\s+/g, " ")
       .replace(/>\s+</g, "><");
 
-      return minifiedValue;
+    return minifiedValue;
   };
 
   const minifyCss = (input: string) => {
-
-  const minifiedValue = input
-    .replace(/([^0-9a-zA-Z\.#])\s+/g, "$1")
-    .replace(/\s([^0-9a-zA-Z\.#]+)/g, "$1")
-    .replace(/;}/g, "}")
-    .replace(/\/\*.*?\*\//g, "");
+    const minifiedValue = input
+      .replace(/([^0-9a-zA-Z\.#])\s+/g, "$1")
+      .replace(/\s([^0-9a-zA-Z\.#]+)/g, "$1")
+      .replace(/;}/g, "}")
+      .replace(/\/\*.*?\*\//g, "");
 
     return minifiedValue;
-
   };
 
   const minifyJavaScript = (input: string) => {
     let minifiedValue = input.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, "");
 
     minifiedValue = minifiedValue.replace(/\s+/g, " ");
-  
+
     return minifiedValue;
   };
 
-  const generatePageSpeedReport = async (url: string, device: string) => {    
-   const data = await getPageSpeedReport(url, device);
+  const generatePageSpeedReport = async (url: string, device: string) => {
+    const data = await getPageSpeedReport(url, device);
 
-   pageSpeedReport.value = data;
-  }
+    pageSpeedReport.value = data;
+  };
 
-  return { previewItems, minifyJavaScript, minifyCss, minifyHtml, minifyOptions, generatePageSpeedReport, pageSpeedReport };
+  return {
+    previewItems,
+    minifyJavaScript,
+    minifyCss,
+    minifyHtml,
+    minifyOptions,
+    generatePageSpeedReport,
+    pageSpeedReport
+  };
 });
