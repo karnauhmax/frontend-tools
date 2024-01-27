@@ -17,7 +17,7 @@
       <div
         :class="`grid pb-2 grid-rows-[${
           activeElementIndex === index ? 1 : 0
-        }fr] transition-all duration-300`"
+        }fr] transition-all duration-500`"
       >
         <div class="overflow-hidden">
           <slot name="content" :item="item" />
