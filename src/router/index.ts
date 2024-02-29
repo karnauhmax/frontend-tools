@@ -10,6 +10,8 @@ const GradientGenerator = () => import('../components/gradient-generator/Gradien
 const FontFaceGenerator = () => import('../components/font-face-generator/FontFaceGenerator.vue');
 const TransformGenerator = () => import('../components/transform-generator/TransformGenerator.vue');
 const PerformanceReport = () => import('../components/performance-report/PerformanceReport.vue');
+const CSSUtilsGenerator = () => import('../components/css-utils-generator/CSSUtilsGenerator.vue');
+const TailwindConfigGenerator = () => import('../components/tailwind-config-generator/TailwindConfigGenerator.vue');
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -101,6 +103,28 @@ const router = createRouter({
       meta: {
         title: 'Performance Report',
         description: 'Test your website performance based on Pagespeed',
+        layout: 'helper',
+      },
+    },
+
+    {
+      path: '/css-utils-generator',
+      name: 'CSSUtilsGenerator',
+      component: CSSUtilsGenerator,
+      meta: {
+        title: 'CSS Utils Generator',
+        description: 'Generate CSS Utils easily',
+        layout: 'helper',
+      },
+    },
+
+    {
+      path: '/tailwind-config-generator',
+      name: 'TailwindConfigGenerator',
+      component: TailwindConfigGenerator,
+      meta: {
+        title: 'Tailwind Config Generator',
+        description: 'Let\'s be honest, noone likes to create tailwind config manually. So do it easily and fast ',
         layout: 'helper',
       },
     },

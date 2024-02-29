@@ -26,33 +26,33 @@
 <script setup>
 const props = defineProps({
   modelValue: {
-    type: [String, Number]
+    type: [String, Number],
   },
 
   label: {
     type: [Boolean, String],
-    default: false
+    default: false,
   },
 
   isValid: {
     type: Boolean,
-    default: true
+    default: true,
   },
 
   errorMessage: {
     type: [String, Boolean],
-    default: false
+    default: false,
   },
 
   units: {
     type: [String, Boolean],
-    default: false
-  }
+    default: false,
+  },
 });
 
-const emits = defineEmits(["update:modelValue"]);
+const emits = defineEmits(['update:modelValue']);
 
 const inputHandler = (event) => {
-  emits("update:modelValue", event.target.value);
+  emits('update:modelValue', event.target.value);
 };
 </script>

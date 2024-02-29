@@ -15,8 +15,4 @@ export default defineConfig({
       '@layouts': fileURLToPath(new URL('./src/layouts', import.meta.url)),
     }
   },
-
-  output: {
-    sanitizeFileName: false
-  }
 })

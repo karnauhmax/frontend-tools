@@ -34,18 +34,16 @@
       <div class="grid gap-y-8" v-if="showReport && !isLoading">
         <div class="grid gap-y-2 md:max-w-[200px] w-full justify-self-center">
           <PerformanceReportMetric
+            title="Performance Score"
             :display-value="performanceScore * 100"
             :score="performanceScore"
-            title="Performance Score"
           />
         </div>
 
         <div class="grid grid-cols-performance-metrics-layout gap-x-6 gap-y-8">
           <PerformanceReportMetric
             v-for="(
-              [, {
-                title, description, displayValue, score,
-              }], index
+              [, { title, description, displayValue, score }], index
             ) in filteredMetrics"
             :title="title"
             :display-value="displayValue"
@@ -83,6 +81,7 @@ const deviceType = ref('mobile');
 
 const generateHandler = () => {
   isLoading.value = true;
+
   generatePageSpeedReport(url.value, deviceType.value).then(() => {
     showReport.value = true;
     isLoading.value = false;
@@ -96,11 +95,11 @@ const METRICS_MAP = [
   'speed-index',
   'total-blocking-time',
   'first-input-delay',
-  'first-meaningful-paint',
+  'first-meaningful-paint'
 ];
 
 const pagespeedReportAudits = computed(
-  () => pageSpeedReport.value.lighthouseResult?.audits,
+  () => pageSpeedReport.value.lighthouseResult?.audits
 );
 
 const filteredMetrics = computed(() => {
@@ -110,6 +109,6 @@ const filteredMetrics = computed(() => {
 });
 
 const performanceScore = computed(
-  () => pageSpeedReport.value.lighthouseResult?.categories.performance.score,
+  () => pageSpeedReport.value.lighthouseResult?.categories.performance.score
 );
 </script>

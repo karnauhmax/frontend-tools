@@ -13,25 +13,23 @@
 </template>
 
 <script setup>
-import { toRefs } from "vue";
-import { RouterLink } from "vue-router";
+import { RouterLink } from 'vue-router';
 const props = defineProps({
   title: {
     type: String,
-    required: true
+    required: true,
   },
 
   description: {
     type: String,
-    required: true
+    required: true,
   },
 
   url: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 });
 
-const { title, description, url } = toRefs(props);
-const renderedPath = `/${url.value}`;
+const renderedPath = `/${props.url}`;
 </script>

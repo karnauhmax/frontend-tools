@@ -59,6 +59,20 @@ export const useStore = defineStore("mainStore", () => {
       title: "Test Performance Report",
       description: "Test your website's application performance",
       url: "performance-report"
+    },
+
+    {
+      id: 9,
+      title: "CSS Utils Generator",
+      description: "Generate CSS Utils easily",
+      url: "css-utils-generator"
+    },
+
+    {
+      id: 10,
+      title: "Tailwind Config Generator",
+      description: "Let's be honest, noone likes to create tailwind config manually ",
+      url: "tailwind-config-generator"
     }
   ]);
 

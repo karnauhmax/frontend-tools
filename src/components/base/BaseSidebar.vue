@@ -1,6 +1,7 @@
 <template>
   <div
     class="fixed right-0 h-full top-0 z-10 transition-transform lg:transform-none lg:relative lg:top-0 lg:h-auto flex items-center overflow-y-auto"
+    ref="sidebar"
     :class="{
       'translate-x-0': isSidebarExpanded,
       'translate-x-[91%]': !isSidebarExpanded,
@@ -25,6 +26,7 @@
             <RouterLink
               class="font-bold hover:text-primary transition-colors duration-300"
               active-class="active"
+              @click="isSidebarExpanded = false"
               :to="`/${url}`"
             >
               {{ title }}
@@ -37,15 +39,22 @@
 </template>
 
 <script setup>
+import { onClickOutside } from '@vueuse/core';
+
 import { ref } from 'vue';
 import { useStore } from '@stores/main-store.ts';
 import { storeToRefs } from 'pinia';
 import { RouterLink } from 'vue-router';
 import ArrowLeft from 'vue-material-design-icons/ArrowLeft.vue';
 
-const isSidebarExpanded = ref(false);
-
 const store = useStore();
 
+const isSidebarExpanded = ref(false);
+const sidebar = ref(null);
+
 const { previewItems } = storeToRefs(store);
+
+onClickOutside(sidebar, () => {
+  isSidebarExpanded.value = false;
+});
 </script>

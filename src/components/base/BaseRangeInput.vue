@@ -1,50 +1,49 @@
 <template>
-  <input
-    :max="maxValue"
-    :min="minValue"
-    :step="stepValue"
-    type="range"
-    @input="changeHandler"
-  />
+  <label>
+    <input
+      :max="maxValue"
+      :min="minValue"
+      :step="stepValue"
+      type="range"
+      @input="changeHandler"
+    />
+  </label>
 </template>
 
 <script setup>
-import { ref, toRefs } from "vue";
-
-const emits = defineEmits(["update:modelValue"]);
+const emits = defineEmits(['update:modelValue']);
 
 const changeHandler = (event) => {
-  emits("update:modelValue", event.target.value);
+  emits('update:modelValue', event.target.value);
 };
 
-const props = defineProps({
+defineProps({
   modelValue: {
-    type: [String, Number]
+    type: [String, Number],
+    default: 0,
   },
 
   minValue: {
     type: [String, Number],
-    default: "0"
+    default: '0',
   },
 
   maxValue: {
     type: [String, Number],
-    default: "100"
+    default: '100',
   },
 
   stepValue: {
     type: [String, Number],
-    default: "1"
-  }
+    default: '1',
+  },
 });
-
-const { minValue, maxValue, stepValue } = toRefs(props);
 </script>
 
 <style lang="scss" scoped>
 /********** Range Input Styles **********/
 /*Range Reset*/
-input[type="range"] {
+input[type='range'] {
   -webkit-appearance: none;
   appearance: none;
   background: transparent;
@@ -53,19 +52,19 @@ input[type="range"] {
 }
 
 /* Removes default focus */
-input[type="range"]:focus {
+input[type='range']:focus {
   outline: none;
 }
 
 /***** Chrome, Safari, Opera and Edge Chromium styles *****/
 /* slider track */
-input[type="range"]::-webkit-slider-runnable-track {
+input[type='range']::-webkit-slider-runnable-track {
   background-color: rgb(55 65 81 / 0.5);
   height: 0.5rem;
 }
 
 /* slider thumb */
-input[type="range"]::-webkit-slider-thumb {
+input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none; /* Override default look */
   appearance: none;
   margin-top: -7px; /* Centers thumb on the track */
@@ -77,7 +76,7 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 3px;
 }
 
-input[type="range"]:focus::-webkit-slider-thumb {
+input[type='range']:focus::-webkit-slider-thumb {
   border: 1px solid #42b883;
   outline: 1px solid #42b883;
   outline-offset: 3px;
@@ -85,14 +84,14 @@ input[type="range"]:focus::-webkit-slider-thumb {
 
 /******** Firefox styles ********/
 /* slider track */
-input[type="range"]::-moz-range-track {
+input[type='range']::-moz-range-track {
   background-color: #053a5f;
   border-radius: 0.5rem;
   height: 0.5rem;
 }
 
 /* slider thumb */
-input[type="range"]::-moz-range-thumb {
+input[type='range']::-moz-range-thumb {
   border: none; /*Removes extra border that FF applies*/
   border-radius: 0; /*Removes default border-radius that FF applies*/
 
@@ -102,7 +101,7 @@ input[type="range"]::-moz-range-thumb {
   width: 1rem;
 }
 
-input[type="range"]:focus::-moz-range-thumb {
+input[type='range']:focus::-moz-range-thumb {
   border: 1px solid #053a5f;
   outline: 3px solid #053a5f;
   outline-offset: 0.125rem;

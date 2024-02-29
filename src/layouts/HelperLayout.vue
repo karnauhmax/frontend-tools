@@ -6,14 +6,16 @@
     >
       <BaseSidebar />
 
-      <div class="grid gap-y-7 lg:gap-y-8">
-        <div>
-          <h1 class="font-medium text-4xl mb-4">{{ routeMeta.title }}</h1>
-          <p class="max-w-xl">{{ routeMeta.description }}</p>
-        </div>
+      <section>
+        <div class="grid gap-y-7 lg:gap-y-8">
+          <div>
+            <h1 class="font-medium text-4xl mb-4">{{ routeMeta.title }}</h1>
+            <p class="max-w-xl">{{ routeMeta.description }}</p>
+          </div>
 
-        <slot />
-      </div>
+          <slot />
+        </div>
+      </section>
     </div>
   </BaseContainer>
 </template>

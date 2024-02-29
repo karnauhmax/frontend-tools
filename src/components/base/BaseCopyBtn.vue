@@ -9,19 +9,19 @@
 </template>
 
 <script setup>
-import ContentCopy from "vue-material-design-icons/ContentCopy.vue";
+import ContentCopy from 'vue-material-design-icons/ContentCopy.vue';
 
 const props = defineProps({
   contentToCopy: {
     type: [String, Number],
-    required: true
-  }
+    required: true,
+  },
 });
 
-const emits = defineEmits(["copied"]);
+const emits = defineEmits(['copied']);
 
 const copyHandler = () => {
   navigator.clipboard.writeText(props.contentToCopy);
-  emits("copied");
+  emits('copied');
 };
 </script>

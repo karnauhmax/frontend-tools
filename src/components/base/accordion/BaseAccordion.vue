@@ -28,18 +28,16 @@
 </template>
 
 <script setup>
-import { toRefs, ref } from "vue";
-
-const { items } = toRefs(props);
-
-const props = defineProps({
-  items: {
-    type: Array,
-    required: true
-  }
-});
+import { ref } from 'vue';
 
 const activeElementIndex = ref(0);
+
+defineProps({
+  items: {
+    type: Array,
+    required: true,
+  },
+});
 
 const clickHandler = (index) => {
   if (index !== activeElementIndex.value) {

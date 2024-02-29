@@ -43,9 +43,9 @@
         <div class="flex wrap gap-3">
           <BaseRadioButton
             v-for="style in styles"
+            name="style"
             :key="style.id"
             :checked="style.checked"
-            name="style"
             :value="style.value"
             :label="style.value"
             v-model="selectedStyle"
@@ -57,11 +57,7 @@
     <div class="grid gap-y-3">
       <p>Output</p>
 
-      <div
-        :class="`min-h-[350px] transition-colors border ${
-          wasCopied ? 'border-primary' : 'border-text-secondary/30'
-        }`"
-      >
+      <div :class="`min-h-[350px] transition-colors border ${copiedClass}`">
         <pre>
      {{ result }}
     </pre
@@ -93,99 +89,99 @@ const selectedFormats = ref(['woff2']);
 const formats = ref([
   {
     id: 1,
-    value: 'woff2',
+    value: 'woff2'
   },
 
   {
     id: 2,
-    value: 'woff',
+    value: 'woff'
   },
 
   {
     id: 3,
-    value: 'ttf',
+    value: 'ttf'
   },
 
   {
     id: 4,
-    value: 'otf',
-  },
+    value: 'otf'
+  }
 ]);
 
 const weights = ref([
   {
     id: 1,
     value: 100,
-    checked: false,
+    checked: false
   },
 
   {
     id: 2,
     value: 200,
-    checked: false,
+    checked: false
   },
 
   {
     id: 3,
     value: 300,
-    checked: false,
+    checked: false
   },
 
   {
     id: 4,
     value: 400,
-    checked: true,
+    checked: true
   },
 
   {
     id: 5,
     value: 500,
-    checked: false,
+    checked: false
   },
 
   {
     id: 6,
     value: 600,
-    checked: false,
+    checked: false
   },
 
   {
     id: 7,
     value: 700,
-    checked: false,
+    checked: false
   },
 
   {
     id: 8,
     value: 800,
-    checked: false,
+    checked: false
   },
 
   {
     id: 9,
     value: 900,
-    checked: false,
-  },
+    checked: false
+  }
 ]);
 
 const styles = ref([
   {
     id: 1,
     value: 'normal',
-    checked: true,
+    checked: true
   },
 
   {
     id: 2,
     value: 'italic',
-    checked: false,
+    checked: false
   },
 
   {
     id: 3,
     value: 'oblique',
-    checked: false,
-  },
+    checked: false
+  }
 ]);
 
 const result = computed(() => {
@@ -193,17 +189,17 @@ const result = computed(() => {
     @font-face {
       font-family: "${fileName.value}";
       src: ${selectedFormats.value
-    .map((format, index, array) => {
-      const url = `${fontPath.value}${fileName.value}.${format} `;
-      return index === 0
-        ? `url("${url}") format("${format}")${
-          index < array.length - 1 ? ',' : ';'
-        }`
-        : `        url("${url}") format("${format}")${
-          index < array.length - 1 ? ',' : ';'
-        }`;
-    })
-    .join('\n     ')}
+        .map((format, index, array) => {
+          const url = `${fontPath.value}${fileName.value}.${format} `;
+          return index === 0
+            ? `url("${url}") format("${format}")${
+                index < array.length - 1 ? ',' : ';'
+              }`
+            : `        url("${url}") format("${format}")${
+                index < array.length - 1 ? ',' : ';'
+              }`;
+        })
+        .join('\n     ')}
       font-weight: ${selectedWeight.value};
       font-style: ${selectedStyle.value};
     }
@@ -211,13 +207,19 @@ const result = computed(() => {
   return result;
 });
 
-const checkIfDisabled = (value) => selectedFormats.value.length === 1 && selectedFormats.value.includes(value);
+const copiedClass = computed(() =>
+  wasCopied.value ? 'border-primary' : 'border-text-secondary/30'
+);
 
+const checkIfDisabled = (value) =>
+  selectedFormats.value.length === 1 && selectedFormats.value.includes(value);
+
+const COPY_BUTTON_DELAY = 2000;
 const copyHandler = () => {
   wasCopied.value = true;
 
   setTimeout(() => {
     wasCopied.value = false;
-  }, 2000);
+  }, COPY_BUTTON_DELAY);
 };
 </script>

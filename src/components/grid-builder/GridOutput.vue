@@ -35,43 +35,40 @@
 </template>
 
 <script setup>
-import { toRefs, computed, ref } from "vue";
+import { toRefs, computed, ref } from 'vue';
 
 const props = defineProps({
   width: {
-    type: Number
+    type: Number,
   },
 
   units: {
-    type: String
-  }
+    type: String,
+  },
 });
 
 const outputElement = ref(null);
 
 defineExpose({
-  outputElement
+  outputElement,
 });
 
-const { units } = toRefs(props);
+const { units, width } = toRefs(props);
 
-const unitsSelected = computed(() => {
-  return units.value === "rem" ? "rem" : "px";
-});
+const unitsSelected = computed(() => (units.value === 'rem' ? 'rem' : 'px'));
 
-const cardsWidth = computed(() => {
-  return `repeat(auto-fill, minmax(min(100%, ${width.value}${unitsSelected.value}), 1fr))`;
-});
+const cardsWidth = computed(
+  () =>
+    `repeat(auto-fill, minmax(min(100%, ${width.value}${unitsSelected.value}), 1fr))`
+);
 
 const output = computed(() => {
   return `grid-template-columns: ${cardsWidth.value}`;
 });
-
-const { width } = toRefs(props);
 </script>
 
 <style lang="scss" scoped>
 .builder-grid {
-  grid-template-columns: v-bind("cardsWidth");
+  grid-template-columns: v-bind('cardsWidth');
 }
 </style>
