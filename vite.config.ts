@@ -14,5 +14,9 @@ export default defineConfig({
       '@base': fileURLToPath(new URL('./src/components/base', import.meta.url)),
       '@layouts': fileURLToPath(new URL('./src/layouts', import.meta.url)),
     }
+  },
+
+  output: {
+    sanitizeFileName: false
   }
 })
