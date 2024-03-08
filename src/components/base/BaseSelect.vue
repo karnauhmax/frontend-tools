@@ -9,7 +9,7 @@
     </button>
 
     <ul
-      :class="`grid max-h-[350px] overflow-y-auto custom-scrollbar absolute w-full ${conditionalListClass} transition-[opacity_visibility] border  border-primary bg-dark top-[60px] z-10`"
+      :class="`grid max-h-[350px] overflow-y-auto custom-scrollbar absolute w-full ${conditionalListClass} transition-[opacity_visibility] outline outline-1  outline-primary bg-dark top-[60px] z-10`"
     >
       <li
         class="[&:not(:last-child)]:border-b border-primary"
