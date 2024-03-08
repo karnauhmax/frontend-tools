@@ -406,51 +406,195 @@ const properties = ref([
   {
     id: 4,
     title: 'Border/Outline',
+    propertiesNames: [
+      'border',
+      'border-block',
+      'border-inline',
+      'borderWidth',
+      'borderStyle',
+      'borderColor',
+      'borderRadius',
+      'borderTopLeftRadius',
+      'borderTopRightRadius',
+      'borderBottomLeftRadius',
+      'borderBottomRightRadius',
+      'outline',
+      'outlineWidth',
+      'outlineStyle',
+      'outlineColor',
+    ],
+
+    cssProperties: [
+      {
+        id: 5,
+        title: 'Border',
+        value: 'border',
+        items: [],
+      },
+
+      {
+        id: 6,
+        title: 'Border Block',
+        value: 'borderBlock',
+        items: [],
+      },
+
+      {
+        id: 7,
+        title: 'Border Inline',
+        value: 'borderInline',
+        items: [],
+      },
+
+      {
+        id: 8,
+        title: 'Border Width',
+        value: 'borderWidth',
+        items: [],
+      },
+
+      {
+        id: 9,
+        title: 'Border Style',
+        value: 'borderStyle',
+        items: [],
+      },
+
+      {
+        id: 10,
+        title: 'Border Color',
+        value: 'borderColor',
+        items: [],
+      },
+
+      {
+        id: 11,
+        title: 'Border Radius',
+        value: 'borderRadius',
+        items: [],
+      },
+
+      {
+        id: 12,
+        title: 'Outline',
+        value: 'outline',
+        items: [],
+      },
+
+      {
+        id: 13,
+        title: 'Border Top Left Radius',
+        value: 'borderTopLeftRadius',
+        items: [],
+      },
+
+      {
+        id: 14,
+        title: 'Border Top Right Radius',
+        value: 'borderTopRightRadius',
+        items: [],
+      },
+
+      {
+        id: 15,
+        title: 'Border Bottom Left Radius',
+        value: 'borderBottomLeftRadius',
+        items: [],
+      },
+
+      {
+        id: 16,
+        title: 'Border Bottom Right Radius',
+        value: 'borderBottomRightRadius',
+        items: [],
+      },
+
+      {
+        id: 17,
+        title: 'Border Image',
+        value: 'borderImage',
+        items: [],
+      },
+    ],
+  },
+
+  {
+    id: 18,
+    title: 'Colors',
+    propertiesNames: ['colors'],
+    cssProperties: [
+      {
+        id: 19,
+        title: 'Colors',
+        value: 'colors',
+        items: [],
+      },
+    ],
+  },
+
+  {
+    id: 20,
+    title: 'Typography',
+    propertiesNames: ['fontSize', 'letterSpacing', 'lineHeight', 'textStroke'],
+    cssProperties: [
+      {
+        id: 22,
+        title: 'Font Size',
+        value: 'fontSize',
+        items: [],
+      },
+
+      {
+        id: 24,
+        title: 'Letter Spacing',
+        value: 'letterSpacing',
+        items: [],
+      },
+
+      {
+        id: 25,
+        title: 'Line Height',
+        value: 'lineHeight',
+        items: [],
+      },
+
+      {
+        id: 26,
+        title: 'Text Stroke',
+        value: 'textStroke',
+        items: [],
+      },
+    ],
   },
 ]);
 
-const selectedCategory = ref('Effects');
+const PropertyTypes = {
+  EFFECTS: 'Effects',
+  GRID: 'Grid',
+  SPACING: 'Spacing',
+  FLEX: 'Flex',
+  BACKGROUND: 'Background',
+  SIZES: 'Sizes',
+  BORDER_OUTLINE: 'Border/Outline',
+  COLORS: 'Colors',
+  TYPOGRAPHY: 'Typography',
+};
 
-const options = ref([
-  'Effects',
-  'Grid',
-  'Flex',
-  'Spacing',
-  'Typography',
-  'Sizes',
-  'Background',
-]);
+const selectedCategory = ref(PropertyTypes.EFFECTS);
 
-const resultList = computed(() =>
-  properties.value
+const options = ref(Object.values(PropertyTypes));
+
+const resultList = computed(() => {
+  return properties.value
     .map((property) => {
       const cssProperties = property.cssProperties
-        .map((cssProperty) => {
-          if (!cssProperty.items.length) return;
-
-          const filteredItems = cssProperty.items.filter((item) => item);
-
-          const cssItems = filteredItems.map((cssItem) => {
-            if (!cssItem.title || !cssItem.value) return;
-
-            return `"${cssItem.title}": "${cssItem.value}" ,`;
-          });
-
-          const isCssItemsValid = cssItems.every((item) => item);
-          if (!isCssItemsValid) return;
-
-          return `
-        ${cssProperty.value}: {
-          ${cssItems.join('\n          ')}
-        },
-      `;
-        })
+        .map((cssProperty) => generateCssItems(cssProperty))
         .join('');
 
       return cssProperties;
     })
-    .join('')
-);
+    .join('');
+});
 
 const resultMarkup = computed(() => {
   return `
@@ -463,6 +607,21 @@ export default {
   "plugins": []
 };`;
 });
+
+const generateCssItems = (cssProperty) => {
+  const cssItems = cssProperty.items
+    .filter((item) => item.title && item.value)
+    .map((item) => `"${item.title}": "${item.value}" ,`)
+    .join('\n          ');
+
+  return cssItems
+    ? `
+        ${cssProperty.value}: {
+          ${cssItems}
+        },
+      `
+    : '';
+};
 
 const createNewPropertyItem = (propertyToPush) => {
   propertyToPush.items.push({
