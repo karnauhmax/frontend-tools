@@ -14,11 +14,7 @@
     </div>
 
     <div class="grid grid-cols-[2fr_1fr] gap-2">
-      <BaseInput
-        v-model="title"
-        placeholder="Name..."
-      />
-
+      <BaseInput v-model="title" placeholder="Name..." />
 
       <label class="col-span-3">
         <textarea

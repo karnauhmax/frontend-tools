@@ -14,7 +14,7 @@ module.exports = {
         'grid-rows': 'grid-template-rows',
       },
       colors: {
-        primary: '#42b883',
+        primary: 'var(--primary-color)',
         dark: '#020420',
         'text-secondary': 'rgba(235, 235, 235, .6)',
         'text-primary': 'rgba(255, 255, 255, .87)',

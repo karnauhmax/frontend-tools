@@ -70,15 +70,15 @@ input[type='range']::-webkit-slider-thumb {
   margin-top: -7px; /* Centers thumb on the track */
 
   /*custom styles*/
-  background-color: #42b883;
+  background-color: var(--primary-color);
   height: 20px;
   width: 20px;
   border-radius: 3px;
 }
 
 input[type='range']:focus::-webkit-slider-thumb {
-  border: 1px solid #42b883;
-  outline: 1px solid #42b883;
+  border: 1px solid var(--primary-color);
+  outline: 1px solid var(--primary-color);
   outline-offset: 3px;
 }
 

@@ -136,7 +136,7 @@ const output = computed(() => `transform: ${dynamicStyles.value};`);
 .result {
   width: 300px;
   height: 300px;
-  background-color: #42b883;
+  background-color: var(--primary-color);
   border-radius: 5px;
   transform: v-bind("dynamicStyles");
 }
