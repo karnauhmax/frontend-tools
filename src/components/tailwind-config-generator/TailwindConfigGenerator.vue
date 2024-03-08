@@ -89,8 +89,6 @@ const properties = ref([
         id: 23,
         title: 'Padding',
         value: 'padding',
-        units: ['px', 'rem', 'vw', '%', 'vh'],
-        selectedUnit: 'px',
         items: [
           {
             id: 1,

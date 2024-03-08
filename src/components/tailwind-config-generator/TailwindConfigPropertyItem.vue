@@ -19,7 +19,6 @@
         placeholder="Name..."
       />
 
-      <BaseSelect v-if="units" v-model="selectedUnit" :options="units" />
 
       <label class="col-span-3">
         <textarea
@@ -49,11 +48,6 @@ const props = defineProps({
   title: {
     type: String,
     required: true,
-  },
-
-  units: {
-    type: [Array, Boolean],
-    default: false,
   },
 
   id: {

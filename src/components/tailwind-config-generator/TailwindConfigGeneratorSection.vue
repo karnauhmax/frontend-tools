@@ -14,8 +14,6 @@
         :key="item.id"
         :id="item.id"
         :property="property"
-        :units="property.units"
-        :selected-unit="property.selectedUnit"
         v-model:title="item.title"
         v-model:value="item.value"
         v-model:selected-unit="property.selectedUnit"
