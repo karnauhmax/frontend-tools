@@ -15,7 +15,7 @@
 
     <div class="grid grid-cols-[2fr_1fr] gap-2">
       <BaseInput
-        @update:modelValue="$emit('update:title', $event)"
+        v-model="title"
         placeholder="Name..."
       />
 
