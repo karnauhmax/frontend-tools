@@ -431,6 +431,9 @@ const resultList = computed(() =>
             return `"${cssItem.title}": "${cssItem.value}" ,`;
           });
 
+          const isCssItemsValid = cssItems.every((item) => item);
+          if (!isCssItemsValid) return;
+
           return `
         ${cssProperty.value}: {
           ${cssItems.join('\n          ')}
@@ -476,8 +479,6 @@ const handleNewProperty = (propertyName) => {
     const foundProperty = property.cssProperties.find(
       (item) => item.value === propertyName
     );
-
-    console.log(propertyName);
 
     if (foundProperty) {
       createNewPropertyItem(foundProperty);
