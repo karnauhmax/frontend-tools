@@ -3,6 +3,11 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --primary-color: #42b883;
+  --dark-color: #020420;
+}
+
 @layer base {
   *,
   *::before,
@@ -12,7 +17,7 @@
 
   ::selection {
     color: #fff;
-    background: #42b883;
+    background: var(--primary-color);
   }
 
   html {
@@ -44,7 +49,7 @@
   }
   
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: #42b883;
+    background-color: var(--primary-color);
   }
 
   .not-clickable {

@@ -7,15 +7,16 @@ module.exports = {
       gridTemplateColumns: {
         'sidebar-layout': '300px 1fr',
         'preview-layout': 'repeat(auto-fill, minmax(min(300px, 100%), 1fr))',
-        'performance-metrics-layout': 'repeat(auto-fill, minmax(min(220px, 100%), 1fr))',
+        'performance-metrics-layout':
+          'repeat(auto-fill, minmax(min(220px, 100%), 1fr))',
         'performance-items-layout': '1fr 20px',
       },
       transitionProperty: {
         'grid-rows': 'grid-template-rows',
       },
       colors: {
-        primary: '#42b883',
-        dark: '#020420',
+        primary: 'var(--primary-color)',
+        dark: 'var(--dark-color)',
         'text-secondary': 'rgba(235, 235, 235, .6)',
         'text-primary': 'rgba(255, 255, 255, .87)',
         'score-high': '#42b883',

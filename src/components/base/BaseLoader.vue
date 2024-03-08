@@ -6,8 +6,8 @@
 
 <style lang="scss" scoped>
 .loader {
-  border: 4px solid rgb(89, 89, 89); /* Light grey */
-  border-top: 4px solid #42b883; /* Blue */
+  border: 4px solid rgb(89, 89, 89);
+  border-top: 4px solid var(--primary-color);
   border-radius: 50%;
   width: 30px;
   height: 30px;
