@@ -13,10 +13,10 @@
       </button>
     </div>
 
-    <div class="grid grid-cols-[2fr_1fr] gap-2">
+    <div class="grid gap-2">
       <BaseInput v-model="title" placeholder="Name..." />
 
-      <label class="col-span-3">
+      <label>
         <textarea
           class="bg-dark border border-text-secondary/10 resize-none w-full min-h-[100px] transition focus:outline-none focus:border-primary p-2 custom-scrollbar"
           placeholder="Value..."

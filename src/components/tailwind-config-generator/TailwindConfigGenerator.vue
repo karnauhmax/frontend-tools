@@ -402,6 +402,11 @@ const properties = ref([
       },
     ],
   },
+
+  {
+    id: 4,
+    title: 'Border/Outline',
+  },
 ]);
 
 const selectedCategory = ref('Effects');
