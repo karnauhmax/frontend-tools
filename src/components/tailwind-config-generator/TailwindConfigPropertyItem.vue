@@ -1,0 +1,84 @@
+<template>
+  <div>
+    <div class="flex justify-between items-center gap-x-2">
+      <h4>{{ property.title }}</h4>
+
+      <button
+        class="group p-2 transition-opacity hover:opacity-50"
+        type="button"
+        aria-label="Delete Property Item"
+        @click="deletePropertyItem"
+      >
+        <TrashcanOutline fill-color="#42b883" />
+      </button>
+    </div>
+
+    <div class="grid grid-cols-[2fr_1fr] gap-2">
+      <BaseInput
+        @update:modelValue="$emit('update:title', $event)"
+        placeholder="Name..."
+      />
+
+      <BaseSelect v-if="units" v-model="selectedUnit" :options="units" />
+
+      <label class="col-span-3">
+        <textarea
+          class="bg-dark border border-text-secondary/10 resize-none w-full min-h-[100px] transition focus:outline-none focus:border-primary p-2 custom-scrollbar"
+          placeholder="Value..."
+          v-model="value"
+        />
+      </label>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, toRefs } from 'vue';
+import { useStore } from '@/stores/main-store';
+import { storeToRefs } from 'pinia';
+
+import TrashcanOutline from 'vue-material-design-icons/TrashcanOutline.vue';
+import BaseSelect from '@base/BaseSelect.vue';
+import BaseInput from '@base/BaseInput.vue';
+
+const title = defineModel('title', { required: true });
+const value = defineModel('value', { required: true });
+const selectedUnit = defineModel('selectedUnit', { required: true });
+
+const props = defineProps({
+  title: {
+    type: String,
+    required: true,
+  },
+
+  units: {
+    type: [Array, Boolean],
+    default: false,
+  },
+
+  id: {
+    type: Number,
+    required: true,
+  },
+
+  property: {
+    type: Object,
+    required: true,
+  },
+
+  value: {
+    type: String,
+    required: true,
+  },
+});
+
+const { id, property } = toRefs(props);
+
+const emits = defineEmits(['onPropertyItemDelete']);
+
+const deletePropertyItem = () => {
+  emits('onPropertyItemDelete', id.value, property.value);
+};
+</script>
+
+<style lang="scss" scoped></style>

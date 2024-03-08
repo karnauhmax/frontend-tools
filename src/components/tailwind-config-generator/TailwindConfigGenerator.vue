@@ -1,6 +1,5 @@
 <template>
   <div class="generator">
-    {{ holder }}
     <div class="mb-4 grid gap-y-4">
       <h2 class="text-2xl">Select a category</h2>
       <BaseSelect v-model="selectedCategory" :options="options" />
@@ -13,17 +12,17 @@
           :title="title"
           :properties="cssProperties"
           :properties-names="propertiesNames"
+          :id="id"
           v-show="selectedCategory === title"
           @on-property-created="handleNewProperty"
           @on-property-item-delete="removePropertyItem"
-          @on-property-item-added="addPropertyItem"
         />
       </template>
     </div>
     <label>
       <textarea
         class="bg-dark border border-text-secondary/10 resize-none w-full min-h-[300px] transition focus:outline-none focus:border-primary p-4 custom-scrollbar"
-        v-model="result"
+        v-html="resultMarkup"
       />
     </label>
   </div>
@@ -33,27 +32,6 @@
 import { computed, ref } from 'vue';
 import BaseSelect from '@base/BaseSelect.vue';
 import TailwindConfigSection from './TailwindConfigGeneratorSection.vue';
-
-const holder = ref([]);
-
-const selectedCategory = ref('Effects');
-
-const options = ref([
-  'Effects',
-  'Grid',
-  'Flex',
-  'Spacing',
-  'Typography',
-  'Sizes',
-]);
-
-const result = ref(`
-  /** @type {import('tailwindcss').Config} */
-export default {
-  "theme": {},
-  "variants": {},
-  "plugins": []
-};`);
 
 const properties = ref([
   {
@@ -113,11 +91,68 @@ const properties = ref([
         value: 'padding',
         units: ['px', 'rem', 'vw', '%', 'vh'],
         selectedUnit: 'px',
-        items: [],
+        items: [
+          {
+            id: 1,
+            title: 'AZAZ',
+            value: '10px',
+          },
+        ],
       },
     ],
   },
 ]);
+
+const selectedCategory = ref('Effects');
+
+const options = ref([
+  'Effects',
+  'Grid',
+  'Flex',
+  'Spacing',
+  'Typography',
+  'Sizes',
+]);
+
+const resultList = computed(() =>
+  properties.value
+    .map((property) => {
+      const cssProperties = property.cssProperties
+        .map((cssProperty) => {
+          if (!cssProperty.items.length) return;
+
+          const filteredItems = cssProperty.items.filter((item) => item);
+
+          const cssItems = filteredItems.map((cssItem) => {
+            if (!cssItem.title || !cssItem.value) return;
+
+            return `${cssItem.title}: "${cssItem.value}" ,`;
+          });
+
+          return `
+        ${cssProperty.value}: {
+          ${cssItems.join('         \n')}
+        },
+      `;
+        })
+        .join('');
+
+      return cssProperties;
+    })
+    .join('')
+);
+
+const resultMarkup = computed(() => {
+  return `
+/** @type {import('tailwindcss').Config} */
+export default {
+  "theme": {
+    extend: {${resultList.value}}
+  },
+  "variants": {},
+  "plugins": []
+};`;
+});
 
 const createNewPropertyItem = (propertyToPush) => {
   propertyToPush.items.push({
@@ -125,10 +160,6 @@ const createNewPropertyItem = (propertyToPush) => {
     title: '',
     value: '',
   });
-};
-
-const addPropertyItem = () => {
-  console.log(1);
 };
 
 const removePropertyItem = (itemId, property) => {

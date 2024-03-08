@@ -9,52 +9,27 @@
     />
 
     <template v-for="property in properties" :key="property.id">
-      <div v-for="item in property.items" :key="item.id" class="grid gap-y-4">
-        <div class="flex justify-between items-center gap-x-2">
-          <h4>{{ property.title }}</h4>
-
-          <button
-            class="group p-2 transition-opacity hover:opacity-50"
-            type="button"
-            aria-label="Delete Property Item"
-            @click="deletePropertyItem(item.id, property)"
-          >
-            <TrashcanOutline fill-color="#42b883" />
-          </button>
-        </div>
-
-        <div class="grid grid-cols-[2fr_1fr_1fr] gap-2">
-          <BaseInput v-model="item.title" placeholder="Name..." />
-          <BaseSelect
-            v-if="property.units"
-            v-model="property.selectedUnit"
-            :options="property.units"
-          />
-
-          <BaseButton
-            @click="addPropertyItem(item.title, item.value)"
-            label="Add"
-          />
-
-          <label class="col-span-3">
-            <textarea
-              class="bg-dark border border-text-secondary/10 resize-none w-full min-h-[100px] transition focus:outline-none focus:border-primary p-2 custom-scrollbar"
-              placeholder="Value..."
-              v-model="item.value"
-            />
-          </label>
-        </div>
-      </div>
+      <TailwindConfigPropertyItem
+        v-for="item in property.items"
+        :key="item.id"
+        :id="item.id"
+        :property="property"
+        :units="property.units"
+        :selected-unit="property.selectedUnit"
+        v-model:title="item.title"
+        v-model:value="item.value"
+        v-model:selected-unit="property.selectedUnit"
+        @on-property-item-delete="deletePropertyItem"
+      />
     </template>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, toRefs } from 'vue';
 import BaseSelect from '@base/BaseSelect.vue';
 import BaseButton from '@base/BaseButton.vue';
-import BaseInput from '@base/BaseInput.vue';
-import TrashcanOutline from 'vue-material-design-icons/TrashcanOutline.vue';
+import TailwindConfigPropertyItem from './TailwindConfigPropertyItem.vue';
 
 const props = defineProps({
   properties: {
@@ -71,6 +46,11 @@ const props = defineProps({
     type: String,
     required: true,
   },
+
+  id: {
+    type: Number,
+    required: true,
+  },
 });
 
 const selectedCategory = ref(props.propertiesNames[0]);
@@ -83,12 +63,6 @@ const emits = defineEmits([
 
 const addProperty = () => {
   emits('onPropertyCreated', selectedCategory.value);
-};
-
-const addPropertyItem = (title, value) => {
-  if (title && value) {
-    emits('onPropertyItemAdded', title, value);
-  }
 };
 
 const deletePropertyItem = (itemId, property) => {
