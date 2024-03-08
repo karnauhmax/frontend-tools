@@ -32,17 +32,13 @@
 </template>
 
 <script setup>
-import { ref, toRefs } from 'vue';
-import { useStore } from '@/stores/main-store';
-import { storeToRefs } from 'pinia';
+import { toRefs } from 'vue';
 
 import TrashcanOutline from 'vue-material-design-icons/TrashcanOutline.vue';
-import BaseSelect from '@base/BaseSelect.vue';
 import BaseInput from '@base/BaseInput.vue';
 
 const title = defineModel('title', { required: true });
 const value = defineModel('value', { required: true });
-const selectedUnit = defineModel('selectedUnit', { required: true });
 
 const props = defineProps({
   title: {
