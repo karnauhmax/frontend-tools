@@ -131,7 +131,7 @@ const resultList = computed(() =>
 
           return `
         ${cssProperty.value}: {
-          ${cssItems.join('         \n')}
+          ${cssItems.join('\n          ')}
         },
       `;
         })
