@@ -57,7 +57,7 @@
     <div class="grid gap-y-3">
       <p>Output</p>
 
-      <div :class="`min-h-[350px] transition-colors border ${copiedClass}`">
+      <!-- <div :class="`min-h-[350px] transition-colors border ${copiedClass}`">
         <pre>
      {{ result }}
     </pre
@@ -68,7 +68,7 @@
           @copied="copyHandler"
           class="absolute top-[15px] right-[15px]"
         />
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -89,99 +89,99 @@ const selectedFormats = ref(['woff2']);
 const formats = ref([
   {
     id: 1,
-    value: 'woff2'
+    value: 'woff2',
   },
 
   {
     id: 2,
-    value: 'woff'
+    value: 'woff',
   },
 
   {
     id: 3,
-    value: 'ttf'
+    value: 'ttf',
   },
 
   {
     id: 4,
-    value: 'otf'
-  }
+    value: 'otf',
+  },
 ]);
 
 const weights = ref([
   {
     id: 1,
     value: 100,
-    checked: false
+    checked: false,
   },
 
   {
     id: 2,
     value: 200,
-    checked: false
+    checked: false,
   },
 
   {
     id: 3,
     value: 300,
-    checked: false
+    checked: false,
   },
 
   {
     id: 4,
     value: 400,
-    checked: true
+    checked: true,
   },
 
   {
     id: 5,
     value: 500,
-    checked: false
+    checked: false,
   },
 
   {
     id: 6,
     value: 600,
-    checked: false
+    checked: false,
   },
 
   {
     id: 7,
     value: 700,
-    checked: false
+    checked: false,
   },
 
   {
     id: 8,
     value: 800,
-    checked: false
+    checked: false,
   },
 
   {
     id: 9,
     value: 900,
-    checked: false
-  }
+    checked: false,
+  },
 ]);
 
 const styles = ref([
   {
     id: 1,
     value: 'normal',
-    checked: true
+    checked: true,
   },
 
   {
     id: 2,
     value: 'italic',
-    checked: false
+    checked: false,
   },
 
   {
     id: 3,
     value: 'oblique',
-    checked: false
-  }
+    checked: false,
+  },
 ]);
 
 const result = computed(() => {

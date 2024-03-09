@@ -19,31 +19,23 @@
         />
       </template>
     </div>
-    <label class="relative grid min-h-[300px]">
-      <textarea
-        :class="`bg-dark border ${
-          isCopied ? 'border-primary' : 'border-text-secondary/10'
-        } resize-none w-full h-full transition focus:outline-none focus:border-primary p-4 custom-scrollbar`"
-        v-html="resultMarkup"
-      />
 
-      <BaseCopyBtn
-        class="absolute right-4 top-4"
-        @copied="copyHandler"
-        :content-to-copy="resultMarkup"
-      />
-    </label>
+    <BaseResult :content-to-copy="resultMarkup">
+      <code>
+        <pre>{{ resultMarkup }}</pre>
+      </code>
+    </BaseResult>
   </div>
 </template>
 
 <script setup>
 import { computed, ref } from 'vue';
 import BaseSelect from '@base/BaseSelect.vue';
+import BaseCopyBtn from '@base/BaseCopyBtn.vue';
+import BaseResult from '@base/BaseResult.vue';
 import TailwindConfigSection from './TailwindConfigGeneratorSection.vue';
 
-import propertiesStorage from './properties/properties.js';
-
-import BaseCopyBtn from '@base/BaseCopyBtn.vue';
+import propertiesStorage from './properties/properties';
 
 const isCopied = ref(false);
 
@@ -86,8 +78,7 @@ const resultList = computed(() => {
 });
 
 const resultMarkup = computed(() => {
-  return `
-/** @type {import('tailwindcss').Config} */
+  return `/** @type {import('tailwindcss').Config} */
 export default {
   "theme": {
     extend: {${resultList.value}}
