@@ -16,7 +16,6 @@
         :property="property"
         v-model:title="item.title"
         v-model:value="item.value"
-        v-model:selected-unit="property.selectedUnit"
         @on-property-item-delete="deletePropertyItem"
       />
     </template>
