@@ -1,5 +1,5 @@
 <template>
-  <button>
+  <button type="button" aria-label="Copy">
     <ContentCopy
       @click="copyHandler"
       fillColor="rgba(235, 235, 235, .6)"

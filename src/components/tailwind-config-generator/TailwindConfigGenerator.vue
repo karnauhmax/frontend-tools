@@ -19,10 +19,18 @@
         />
       </template>
     </div>
-    <label>
+    <label class="relative grid min-h-[300px]">
       <textarea
-        class="bg-dark border border-text-secondary/10 resize-none w-full min-h-[300px] transition focus:outline-none focus:border-primary p-4 custom-scrollbar"
+        :class="`bg-dark border ${
+          isCopied ? 'border-primary' : 'border-text-secondary/10'
+        } resize-none w-full h-full transition focus:outline-none focus:border-primary p-4 custom-scrollbar`"
         v-html="resultMarkup"
+      />
+
+      <BaseCopyBtn
+        class="absolute right-4 top-4"
+        @copied="copyHandler"
+        :content-to-copy="resultMarkup"
       />
     </label>
   </div>
@@ -32,6 +40,18 @@
 import { computed, ref } from 'vue';
 import BaseSelect from '@base/BaseSelect.vue';
 import TailwindConfigSection from './TailwindConfigGeneratorSection.vue';
+
+import BaseCopyBtn from '@base/BaseCopyBtn.vue';
+
+const isCopied = ref(false);
+
+const copyHandler = () => {
+  isCopied.value = true;
+
+  setTimeout(() => {
+    isCopied.value = false;
+  }, 3000);
+};
 
 const properties = ref([
   {
