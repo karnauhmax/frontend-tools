@@ -53,23 +53,6 @@
         </div>
       </div>
     </form>
-
-    <!-- <div class="grid gap-y-3">
-      <p>Output</p>
-
-      <div :class="`min-h-[350px] transition-colors border ${copiedClass}`">
-        <pre>
-     {{ result }}
-    </pre
-        >
-
-        <BaseCopyBtn
-          :content-to-copy="result"
-          @copied="copyHandler"
-          class="absolute top-[15px] right-[15px]"
-        />
-      </div>
-    </div> -->
     <BaseResult>
       <pre
         >{{ result }}
