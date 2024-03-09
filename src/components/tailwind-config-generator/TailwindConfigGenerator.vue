@@ -21,9 +21,7 @@
     </div>
 
     <BaseResult :content-to-copy="resultMarkup">
-      <code>
-        <pre>{{ resultMarkup }}</pre>
-      </code>
+      <pre>{{ resultMarkup }}</pre>
     </BaseResult>
   </div>
 </template>

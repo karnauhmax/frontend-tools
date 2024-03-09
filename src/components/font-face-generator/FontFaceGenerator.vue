@@ -54,10 +54,10 @@
       </div>
     </form>
 
-    <div class="grid gap-y-3">
+    <!-- <div class="grid gap-y-3">
       <p>Output</p>
 
-      <!-- <div :class="`min-h-[350px] transition-colors border ${copiedClass}`">
+      <div :class="`min-h-[350px] transition-colors border ${copiedClass}`">
         <pre>
      {{ result }}
     </pre
@@ -68,8 +68,13 @@
           @copied="copyHandler"
           class="absolute top-[15px] right-[15px]"
         />
-      </div> -->
-    </div>
+      </div>
+    </div> -->
+    <BaseResult>
+      <pre
+        >{{ result }}
+      </pre>
+    </BaseResult>
   </div>
 </template>
 
@@ -79,6 +84,7 @@ import BaseCheckbox from '@base/BaseCheckbox.vue';
 import BaseInput from '@base/BaseInput.vue';
 import BaseRadioButton from '@base/BaseRadioButton.vue';
 import BaseCopyBtn from '@base/BaseCopyBtn.vue';
+import BaseResult from '@base/BaseResult.vue';
 
 const fileName = ref('Montserrat');
 const fontPath = ref('../fonts/');
@@ -185,41 +191,27 @@ const styles = ref([
 ]);
 
 const result = computed(() => {
-  const result = `
-    @font-face {
-      font-family: "${fileName.value}";
-      src: ${selectedFormats.value
-        .map((format, index, array) => {
-          const url = `${fontPath.value}${fileName.value}.${format} `;
-          return index === 0
-            ? `url("${url}") format("${format}")${
-                index < array.length - 1 ? ',' : ';'
-              }`
-            : `        url("${url}") format("${format}")${
-                index < array.length - 1 ? ',' : ';'
-              }`;
-        })
-        .join('\n     ')}
-      font-weight: ${selectedWeight.value};
-      font-style: ${selectedStyle.value};
-    }
-  `;
+  const result = `@font-face {
+    font-family: "${fileName.value}";
+    src: ${selectedFormats.value
+      .map((format, index, array) => {
+        const url = `${fontPath.value}${fileName.value}.${format} `;
+        return index === 0
+          ? `url("${url}") format("${format}")${
+              index < array.length - 1 ? ',' : ';'
+            }`
+          : `        url("${url}") format("${format}")${
+              index < array.length - 1 ? ',' : ';'
+            }`;
+      })
+      .join('\n     ')}
+    font-weight: ${selectedWeight.value};
+    font-style: ${selectedStyle.value};
+  }`;
   return result;
 });
 
-const copiedClass = computed(() =>
-  wasCopied.value ? 'border-primary' : 'border-text-secondary/30'
-);
-
-const checkIfDisabled = (value) =>
+const checkIfDisabled = (value) => {
   selectedFormats.value.length === 1 && selectedFormats.value.includes(value);
-
-const COPY_BUTTON_DELAY = 2000;
-const copyHandler = () => {
-  wasCopied.value = true;
-
-  setTimeout(() => {
-    wasCopied.value = false;
-  }, COPY_BUTTON_DELAY);
 };
 </script>
