@@ -35,17 +35,7 @@ import TailwindConfigSection from './TailwindConfigGeneratorSection.vue';
 
 import propertiesStorage from './properties/properties';
 
-const isCopied = ref(false);
-
 const properties = ref([...propertiesStorage]);
-
-const copyHandler = () => {
-  isCopied.value = true;
-
-  setTimeout(() => {
-    isCopied.value = false;
-  }, 3000);
-};
 
 const PropertyTypes = {
   EFFECTS: 'Effects',
