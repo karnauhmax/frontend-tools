@@ -10,6 +10,7 @@
 
     <ul
       :class="`grid max-h-[350px] overflow-y-auto custom-scrollbar absolute w-full ${conditionalListClass} transition-[opacity_visibility] outline outline-1  outline-primary bg-dark top-[60px] z-10`"
+      v-if="isMoreThanOneOption"
     >
       <li
         class="[&:not(:last-child)]:border-b border-primary"
@@ -37,6 +38,10 @@ const emits = defineEmits(['update:modelValue']);
 const conditionalListClass = computed(() =>
   isOpened.value ? 'opacity-1 visible' : 'opacity-0 invisible'
 );
+
+const isMoreThanOneOption = computed(() => {
+  return props.options.length > 1;
+});
 
 const props = defineProps({
   options: {
@@ -70,8 +75,8 @@ const toggleSelect = () => {
 const handleSelectChange = (option, index) => {
   isOpened.value = false;
   selected.value = option;
-  emits('update:modelValue', option);
   selectedIndex.value = index;
+  emits('update:modelValue', option);
 };
 
 onClickOutside(target, () => {
